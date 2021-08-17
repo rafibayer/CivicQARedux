@@ -1,0 +1,11 @@
+﻿@model CivicQARedux.Models.FormResponses.FormResponse
+
+@*TODO: Avoid redirect to index by using ajax instead of form post*@
+@{ 
+    var action = Model.IsActive ? "MarkInactive" : "MarkActive";
+}
+
+
+<form id="IsActiveForm@(Model.Id)" asp-controller="FormResponses" asp-action="@action" asp-route-id="@Model.Id">
+    <input id="IsActiveCheck@(Model.Id)" type="checkbox" onclick="submitFormAjax('#IsActiveForm@(Model.Id)')" checked=@Model.IsActive />
+</form>

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CivicQARedux.Models.FormResponses.FormResponse>
+
+@{
+    ViewData["Title"] = "Responses";
+}
+
+<h1>Response Inbox</h1>
+
+@await Html.PartialAsync("_TablePartial.cshtml", Model) 

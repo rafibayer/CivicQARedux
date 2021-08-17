@@ -1,0 +1,39 @@
+﻿@model CivicQARedux.Models.FormResponses.FormResponse
+
+<script>
+    function openMailto() {
+        let mailUrl = "@Model.EmailAddress";
+        let subject = $("#mailto_subject").val().trim();
+        let body = $("#mailto_body").val().trim();
+
+        let url = `mailto:${mailUrl}?subject=${subject}&body=${body}`;
+        let cc = $("#mailto_cc").val().trim();
+        if (cc != "") {
+            url += `&cc=${cc}`
+        }
+
+        window.open(url, "_blank");
+    }
+
+@*
+    class="control-label"
+    class="form-control"
+*@
+
+</script>
+<div class="container">
+    <div class="form-group">
+
+        <label for="subject" class="control-label">Subject</label>
+        <input id="mailto_subject" type="text" name="subject" value="[CivicQA] Re:@Model.Subject"  class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="cc" class="control-label">CC</label>
+        <input id="mailto_cc" type="text" name="subject" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="body" class="control-label">Body</label>
+        <textarea id="mailto_body" name="body" rows="10" cols="50" class="form-control">Hello @Model.FullName,</textarea>
+    </div>
+    <button class="btn btn-primary" onclick="openMailto()">Open In Mail</button>
+</div>

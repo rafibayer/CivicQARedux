@@ -1,0 +1,17 @@
+﻿@model CivicQARedux.Models.Forms.FormDTO
+
+@{
+    ViewData["Title"] = $"{Model.Title} - Details";
+}
+
+<h1>@($"{Model.Title} - Details")</h1>
+
+@await Html.PartialAsync("_DetailsPartial.cshtml", Model)
+<div>
+    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</div>
+<br />
+<h2>Responses</h2>
+@await Html.PartialAsync("../FormResponses/_TablePartial.cshtml", Model.FormResponses) 
+
