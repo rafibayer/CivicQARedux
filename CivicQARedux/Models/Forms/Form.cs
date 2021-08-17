@@ -27,7 +27,7 @@ namespace CivicQARedux.Models.Forms
         public int UserId { get; set; }
 
         [Required]
-        public IdentityUser<int> user { get; set; }
+        public IdentityUser<int> User { get; set; }
 
         public static Form FromInput(FormInput input, IdentityUser<int> user)
         {

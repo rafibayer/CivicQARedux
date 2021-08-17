@@ -9,6 +9,7 @@ using CivicQARedux.Data;
 using CivicQARedux.Models.FormResponses;
 using Microsoft.AspNetCore.Authorization;
 using CivicQARedux.Models.Forms;
+using CivicQARedux.Services;
 
 namespace CivicQARedux.Controllers
 {
@@ -16,19 +17,28 @@ namespace CivicQARedux.Controllers
     public class FormResponsesController : Controller
     {
         private readonly ApplicationContext _context;
+        private readonly ICurrentUserProvider _userProvider;
 
-        public FormResponsesController(ApplicationContext context)
+        public FormResponsesController(ApplicationContext context, ICurrentUserProvider currentUserProvider)
         {
             _context = context;
+            _userProvider = currentUserProvider;
         }
 
         // GET: FormResponses
         public async Task<IActionResult> Index()
         {
+            var user = await _userProvider.GetCurrentUser();
+            if (user is null)
+            {
+                return Unauthorized();
+            }
+
             var responses = _context.Responses
                 .OrderByDescending(r => r.IsActive)
                 .ThenByDescending(r => r.CreatedAt)
-                .Include(f => f.Form);
+                .Include(r => r.Form)
+                .Where(r => r.Form.UserId == user.Id);
 
             return View(await responses.ToListAsync());
         }
@@ -36,6 +46,12 @@ namespace CivicQARedux.Controllers
         // GET: FormResponses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var user = await _userProvider.GetCurrentUser();
+            if (user is null)
+            {
+                return Unauthorized();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -43,6 +59,7 @@ namespace CivicQARedux.Controllers
 
             var formResponse = await _context.Responses
                 .Include(f => f.Form)
+                .Where(f => f.Form.UserId == user.Id)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (formResponse == null)
@@ -120,12 +137,19 @@ namespace CivicQARedux.Controllers
 
         private async Task<IActionResult> SetIsActive(int? id, bool isActive)
         {
+            var user = await _userProvider.GetCurrentUser();
+            if (user is null)
+            {
+                return Unauthorized();
+            }
+
             if (id is null)
             {
                 return NotFound();
             }
 
             var formResponse = await _context.Responses
+                .Where(r => r.Form.UserId == user.Id)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (formResponse is null)
@@ -141,7 +165,7 @@ namespace CivicQARedux.Controllers
                 await _context.SaveChangesAsync();
 
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException) when (!FormResponseExists((int)id))
             {
                 return NotFound();
             }
@@ -153,6 +177,12 @@ namespace CivicQARedux.Controllers
         // GET: FormResponses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await _userProvider.GetCurrentUser();
+            if (user is null)
+            {
+                return Unauthorized();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -160,6 +190,7 @@ namespace CivicQARedux.Controllers
 
             var formResponse = await _context.Responses
                 .Include(f => f.Form)
+                .Where(f => f.Form.UserId == user.Id)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (formResponse == null)
@@ -175,7 +206,15 @@ namespace CivicQARedux.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var formResponse = await _context.Responses.FindAsync(id);
+            var user = await _userProvider.GetCurrentUser();
+            if (user is null)
+            {
+                return Unauthorized();
+            }
+            var formResponse = await _context.Responses
+                .Where(r => r.Form.UserId == user.Id)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
             _context.Responses.Remove(formResponse);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

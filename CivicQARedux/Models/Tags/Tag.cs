@@ -10,7 +10,7 @@ namespace CivicQARedux.Models.Tags
     public class Tag
     {
         [Key]
-        public int Key { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(20, MinimumLength = 1)]

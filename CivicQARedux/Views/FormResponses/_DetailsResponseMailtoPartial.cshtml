@@ -1,12 +1,13 @@
 ﻿@model CivicQARedux.Models.FormResponses.FormResponse
 
 <script>
+    // opens mailto link based on reply fields
     function openMailto() {
-        let mailUrl = "@Model.EmailAddress";
+        let address = "@Model.EmailAddress";
         let subject = $("#mailto_subject").val().trim();
         let body = $("#mailto_body").val().trim();
+        let url = `mailto:${address}?subject=${subject}&body=${body}`;
 
-        let url = `mailto:${mailUrl}?subject=${subject}&body=${body}`;
         let cc = $("#mailto_cc").val().trim();
         if (cc != "") {
             url += `&cc=${cc}`
@@ -14,11 +15,6 @@
 
         window.open(url, "_blank");
     }
-
-@*
-    class="control-label"
-    class="form-control"
-*@
 
 </script>
 <div class="container">
