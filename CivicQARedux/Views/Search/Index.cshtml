@@ -1,0 +1,9 @@
+﻿@model CivicQARedux.Models.Search.SearchResult
+
+
+<h1>Search</h1>
+
+@await Html.PartialAsync("../FormResponses/_SearchInputPartial.cshtml", Model.Query)  
+
+<br />
+@await Html.PartialAsync("../FormResponses/_TablePartial.cshtml", Model.Results) 

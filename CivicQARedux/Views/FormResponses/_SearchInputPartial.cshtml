@@ -1,0 +1,11 @@
+﻿
+@model CivicQARedux.Models.Search.SearchQuery
+
+<form class="container" asp-controller="Search" asp-action="Index">
+    <div class="form-group">
+        <input type="text" name="Subject" placeholder="Subject" value="@Model.Subject" />
+        <input type="text" name="Body" placeholder="Body" value="@Model.Body" />
+        <input type="text" name="Tag" placeholder="Tag" value="@Model.Tag"/>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Search" />
+</form>

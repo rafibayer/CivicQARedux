@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CivicQARedux.Data;
 using CivicQARedux.Services;
+using CivicQARedux.Services.Tagging;
+using CivicQARedux.Services.Search;
 
 namespace CivicQARedux
 {
@@ -32,7 +34,11 @@ namespace CivicQARedux
 
             services.AddRazorPages();
             services.AddControllersWithViews();
+            
             services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+            services.AddSingleton<ITagProvider, SimpleTagProvider>();
+            services.AddScoped<ISearchEngine, SearchEngine>();
+
             services.AddAntiforgery(o =>
                 o.SuppressXFrameOptionsHeader = true);
         }

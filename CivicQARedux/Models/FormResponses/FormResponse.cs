@@ -40,7 +40,7 @@ namespace CivicQARedux.Models.FormResponses
         [Display(Name = "Active")]
         public bool IsActive { get; set; }
 
-        public List<Tag> Tags;
+        public List<Tag> Tags { get; set; } = new List<Tag>();
 
         [Required]
         public Form Form { get; set; }
@@ -58,6 +58,7 @@ namespace CivicQARedux.Models.FormResponses
                 Body = input.Body,
                 CreatedAt = DateTime.Now,
                 IsActive = true,
+                Tags = new List<Tag>(),
                 FormId = form.Id
             };
         }

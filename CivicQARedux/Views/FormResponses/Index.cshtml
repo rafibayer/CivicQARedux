@@ -1,9 +1,15 @@
-﻿@model IEnumerable<CivicQARedux.Models.FormResponses.FormResponse>
+﻿@using CivicQARedux.Models.Search;
+@model IEnumerable<CivicQARedux.Models.FormResponses.FormResponse>
 
 @{
     ViewData["Title"] = "Responses";
 }
 
-<h1>Response Inbox</h1>
 
+
+<h1>Response Inbox</h1>
+<h3>Search</h3>
+@await Html.PartialAsync("_SearchInputPartial.cshtml", new SearchQuery())
+
+<br />
 @await Html.PartialAsync("_TablePartial.cshtml", Model) 

@@ -1,4 +1,5 @@
 ﻿@model CivicQARedux.Models.FormResponses.FormResponse
+@using CivicQARedux.Models.Tags;
 
 @{
     ViewData["Title"] = "Details";
@@ -58,6 +59,22 @@
         </dd>
     </dl>
 </div>
+<h2>Tags</h2>
+<div>
+    <h4>Add New</h4>
+    @await Html.PartialAsync("../Tags/_CreatePartial.cshtml", new TagInput { FormResponseId = Model.Id })
+</div>
+<hr />
+<div class="container">
+    @foreach (var tag in Model.Tags)
+    {
+        @await Html.PartialAsync("../Tags/_TagViewPartial.cshtml", tag)
+    }
+</div>
+
+
+ 
+
 <h2>Reply</h2>
 @await Html.PartialAsync("_DetailsResponseMailtoPartial.cshtml", Model) 
 

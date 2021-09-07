@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CivicQARedux</name>
+    </assembly>
+    <members>
+        <member name="T:CivicQARedux.Areas.Identity.IdentityHostingStartup">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:CivicQARedux.Areas.Identity.IdentityHostingStartup.Configure(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <param name="builder">Host Builder</param>
+        </member>
+        <member name="T:CivicQARedux.Controllers.FormResponsesController">
+            <summary>
+            Controls actions for FormResponses,
+            including anonymous creation
+            </summary>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.#ctor(CivicQARedux.Data.ApplicationContext,CivicQARedux.Services.ICurrentUserProvider)">
+            <summary>
+            Create a new FormResponseController
+            </summary>
+            <param name="context">Application DB Context</param>
+            <param name="currentUserProvider">providers logged in <see cref="T:Microsoft.AspNetCore.Identity.IdentityUser">User</see> </param>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.Index">
+            <summary>
+            Returns view of all FormResponses for logged in user's Forms
+            </summary>
+            <returns>View</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.Details(System.Nullable{System.Int32})">
+            <summary>
+            Return detailed view + response area for FormResponse
+            </summary>
+            <param name="id">Id of FormResponse</param>
+            <returns>View</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.Create(System.Nullable{System.Int32})">
+            <summary>
+            Creation view for FormResponse, responding to
+            Form with id.
+            Allows Anonymous, meant to be public facing.
+            </summary>
+            <param name="id">Id of Form to respond to</param>
+            <returns>View</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.Create(CivicQARedux.Models.FormResponses.FormResponseInput)">
+            <summary>
+            Accepts creation of FormResponse.
+            Allows Anonymous, meant to be public facing.
+            Returns confirmation view.
+            </summary>
+            <param name="input">FormResponse creation values</param>
+            <returns>View</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.CreateConfirm">
+            <summary>
+            FormResponse creation confirmation view.
+            Allows Anonymous, meant to be public facing.
+            </summary>
+            <returns>View</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.MarkActive(System.Nullable{System.Int32})">
+            <summary>
+            Marks a FormResponse as active
+            </summary>
+            <param name="id">id of FormResponse</param>
+            <returns>Empty 200</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.MarkInactive(System.Nullable{System.Int32})">
+            <summary>
+            Marks a FormResponse as inactive
+            </summary>
+            <param name="id">id of FormResponse</param>
+            <returns>Empty 200</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.SetIsActive(System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Helper to set IsActive value of FormResponse
+            </summary>
+            <param name="id">Id of FormResponse</param>
+            <param name="isActive">new value for IsActive</param>
+            <returns>Empty 200</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.Delete(System.Nullable{System.Int32})">
+            <summary>
+            View for deletion confirmation for a FormResponse
+            </summary>
+            <param name="id">Id of FormResponse</param>
+            <returns>View</returns>
+        </member>
+        <member name="M:CivicQARedux.Controllers.FormResponsesController.DeleteConfirmed(System.Int32)">
+            <summary>
+            Deletes a FormResponse.
+            Redirects to index view.
+            </summary>
+            <param name="id">Id of FormResponse</param>
+            <returns>view</returns>
+        </member>
+    </members>
+</doc>

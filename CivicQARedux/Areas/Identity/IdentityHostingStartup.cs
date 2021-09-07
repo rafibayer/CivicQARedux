@@ -10,8 +10,15 @@ using Microsoft.Extensions.DependencyInjection;
 [assembly: HostingStartup(typeof(CivicQARedux.Areas.Identity.IdentityHostingStartup))]
 namespace CivicQARedux.Areas.Identity
 {
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public class IdentityHostingStartup : IHostingStartup
     {
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="builder">Host Builder</param>
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {

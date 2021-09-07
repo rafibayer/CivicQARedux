@@ -1,0 +1,11 @@
+﻿@model CivicQARedux.Models.Tags.Tag
+
+
+<div class="btn btn-info">
+    <button class="btn btn-info">
+        @Html.DisplayFor(model => model.Text)
+    </button>
+    <form style="display:inline;" asp-controller="Tags" asp-action="Delete" asp-route-id="@Model.Id">
+        <button type="submit" class="btn btn-info">x</button>
+    </form>
+</div>

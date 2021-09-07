@@ -7,28 +7,14 @@ using System.Threading.Tasks;
 
 namespace CivicQARedux.Models.Tags
 {
-    public class Tag
+    public class TagInput
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(20, MinimumLength = 1)]
+        [Display(Name = "Tag")]
         public string Text { get; set; }
 
         [Required]
         public int FormResponseId { get; set; }
-
-        [Required]
-        public FormResponse FormResponse { get; set; }
-
-        public static Tag FromInput(TagInput input)
-        {
-            return new Tag
-            {
-                Text = input.Text.ToUpper(),
-                FormResponseId = input.FormResponseId
-            };
-        }
     }
 }
